@@ -1,0 +1,54 @@
+{
+  "name": "deployment-utils",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Deploy your App with ease",
+  "packageManager": "yarn@3.4.1",
+  "type": "module",
+  "main": "src/main.ts",
+  "repository": "tbd",
+  "author": "Jan Fooken <git@bode.fun>",
+  "license": "MIT",
+  "xo": {
+    "envs": [
+      "es2022",
+      "node"
+    ],
+    "semicolon": false,
+    "rules": {
+      "quotes": [
+        "error",
+        "double"
+      ],
+      "@typescript-eslint/quotes": [
+        "error",
+        "double"
+      ]
+    }
+  },
+  "scripts": {
+    "start": "NODE_ENV=production tsx .",
+    "dev": "NODE_ENV=development tsx .",
+    "dev:watch": "NODE_ENV=development tsx watch .",
+    "prebuild": "yarn lint:fix",
+    "build": "yarn prebuild && tsc",
+    "lint": "xo",
+    "lint:fix": "xo --fix",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "devDependencies": {
+    "@types/node": "^18.14.2",
+    "@vitest/ui": "^0.29.2",
+    "tsx": "^3.12.3",
+    "typescript": "^4.9.5",
+    "vitest": "latest",
+    "xo": "^0.53.1"
+  },
+  "dependencies": {
+    "mri": "1.2.0",
+    "pathe": "^1.1.0"
+  }
+}
