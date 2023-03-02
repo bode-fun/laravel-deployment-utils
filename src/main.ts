@@ -43,6 +43,17 @@ for (const path of parsedArgs._) {
 	const absolutePath = resolve(path)
 	const url = pathToFileURL(absolutePath)
 
+	const rootStat = lstatSync(path)
+	const adjustedRootMode = calculateGroupPermissions(rootStat.mode)
+
+	if (adjustedRootMode !== rootStat.mode) {
+		updateMode({mode: adjustedRootMode, path, dry: parsedArgs.dry})
+	}
+
+	if (rootStat.gid !== parsedArgs.gid || rootStat.uid !== parsedArgs.uid) {
+		updateOwner({gid: parsedArgs.gid, uid: parsedArgs.uid, path, dry: parsedArgs.dry})
+	}
+
 	for (const dirent of walk(url)) {
 		if (dirent instanceof Dirent) {
 			// Since every file gets accessed, there is no need to follow symlinks.
